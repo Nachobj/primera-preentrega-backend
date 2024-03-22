@@ -56,4 +56,29 @@ router.post("/products", async (req, res) => {
     }
 })
 
+router.put("/products/:pid", async (req, res) => {
+    const {pid} = req.params;
+    const actualizarProducto = req.body;
+
+    try {
+        await actualizarProducto.updateProduct(parseInt(id), actualizarProducto);
+        res.json({
+            message: "Producto actualizado correctamente"
+        });
+    } catch(error) {
+        res.status(500).json({error: "Error interno en el servidor"});
+    }
+})
+
+router.delete("/products/:pid", async (req, res) => {
+    const {pid} = req.params;
+    
+    try {
+        await productManager.deleteProduct(parseInt(id));
+        res.json({mesagge: "Producto eliminado"})
+    } catch (error) {
+        res.status(500).json({error: "Error interno del servidor"})
+    }
+})
+
 module.exports = router;
